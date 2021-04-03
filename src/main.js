@@ -5,6 +5,10 @@ import store from "./store";
 
 Vue.config.productionTip = false;
 
+// Vue.prototype.$api = api;
+// We could also inject the api in the store
+// store.$api = api;
+
 new Vue({
   router,
   store,
