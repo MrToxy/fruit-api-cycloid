@@ -1,0 +1,52 @@
+@use '../base/variables' as *;
+@use '../utils/mixins' as *;
+
+.is-flex {
+  display: flex !important;
+}
+.is-align-items-center {
+  align-items: center !important;
+}
+.is-justify-content-center {
+  justify-content: center !important;
+}
+
+.is-multiline {
+  flex-wrap: wrap;
+}
+
+.row {
+  $gap: 8px;
+  display: flex;
+  margin: 0 -$gap;
+  [class^="col"] {
+    padding: $gap;
+  }
+}
+.col {
+  @each $breakpoint, $value in $breakpoints {
+    @for $idx from 1 through $columns {
+      $basis: (100% / $columns) * $idx;
+      &-#{$idx} {
+        flex-basis: $basis;
+        max-width: $basis;
+      }
+
+      @if ($breakpoint == "mobile") {
+        &-#{$idx}-#{$breakpoint} {
+          @media (min-width: 0px) {
+            flex-basis: $basis;
+            max-width: $basis;
+          }
+        }
+      } @else {
+        &-#{$idx}-#{$breakpoint} {
+          @include from($breakpoint) {
+            flex-basis: $basis;
+            max-width: $basis;
+          }
+        }
+      }
+    }
+  }
+}

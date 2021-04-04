@@ -3,7 +3,7 @@ export default async (fruitsObject) => {
   return fruits;
 };
 
-// unfortunately web workers do not cope well with functions given that they cant clone them properly
+// unfortunately web workers do not cope well with functions because they cant clone them properly
 // in this case DRY < performance since its a small piece of code to maintain
 function flatten(object, all = []) {
   if (typeof object === "object" && !Array.isArray(object)) {

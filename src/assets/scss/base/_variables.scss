@@ -1,0 +1,16 @@
+$body-size: 16px;
+$body-min-width: 300px;
+
+$container-max-width: 1440px;
+$font-family: Montserrat, "Helvetica Neue";
+$navbar-height: 3.25rem;
+$gap: 32px;
+
+$columns: 12;
+
+$breakpoints: (
+  mobile: 768px,
+  tablet: 769px,
+  desktop: 1024px,
+  widescreen: $container-max-width,
+);

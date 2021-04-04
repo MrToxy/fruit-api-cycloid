@@ -1,0 +1,40 @@
+@use '../base/variables' as *;
+@mixin mobile {
+  @media (max-width: map-get($breakpoints, mobile)) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (min-width: map-get($breakpoints, tablet)) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (min-width: map-get($breakpoints, desktop)) {
+    @content;
+  }
+}
+
+@mixin widescreen {
+  @media (min-width: map-get($breakpoints, widescreen)) {
+    @content;
+  }
+}
+
+@mixin from($device) {
+  @if map-has-key($breakpoints, $device) {
+    @media (min-width: map-get($breakpoints, $device)) {
+      @content;
+    }
+  } @else {
+    @error "#{$device} is not a valid breakpoint";
+  }
+}
+
+@mixin between($device1, $device2) {
+  @media (min-width: map-get($breakpoints, $device1, ) and (max-width: map-get($breakpoints, $device2))) {
+    @content;
+  }
+}
