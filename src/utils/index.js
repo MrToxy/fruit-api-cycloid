@@ -14,7 +14,7 @@ export function diffInDaysBetweenDates(startDate, endDate) {
   const current = new Date(startDate);
   endDate = new Date(endDate);
   const diffMs = endDate - current;
-  return diffMs / (1000 * 60 * 60 * 24);
+  return parseInt(diffMs / (1000 * 60 * 60 * 24));
 }
 export class Query {
   constructor(data) {
@@ -50,4 +50,16 @@ export class Query {
   get() {
     return this.data;
   }
+}
+
+export function daysToDateObject(days) {
+  const weeks = days / 7;
+  const hours = (weeks % 1) * 24 * 7;
+  const remainingDays = hours / 24;
+
+  return {
+    weeks,
+    hours,
+    days: remainingDays,
+  };
 }

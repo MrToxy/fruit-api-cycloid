@@ -30,12 +30,16 @@ export default new Vuex.Store({
   },
   getters: {
     fruits: (state) =>
-      state.fruits.map((fruit) => ({
-        ...fruit,
-        state: fruitStates.getState(
-          diffInDaysBetweenDates(Date.now(), fruit.expires)
-        ),
-      })),
+      state.fruits.map((fruit) => {
+        const diff = diffInDaysBetweenDates(Date.now(), fruit.expires);
+        return {
+          ...fruit,
+          expiresIn: diff,
+          state: fruitStates.getState(
+            diffInDaysBetweenDates(Date.now(), fruit.expires)
+          ),
+        };
+      }),
 
     price: (state) => {
       const prices = state.fruits.reduce(

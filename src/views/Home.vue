@@ -1,5 +1,6 @@
 <template>
   <section class="section">
+    <Modal v-model="modal" />
     <div class="filters">
       <div class="row is-multiline">
         <div class="col-12-mobile col-6-tablet">
@@ -39,70 +40,87 @@
             />
           </label>
         </div>
-        <div class="col-12">
+      </div>
+      <div class="row is-justify-content-center">
+        <div class="col-12-mobile col-6-tablet col-4-desktop">
           <label>
-            <p>Price Range</p>
-            <PriceSlider v-model="price" v-bind="$store.getters.price" />
+            <p @click="modal = !modal">Price Range</p>
+            <PriceSlider v-if="price" v-model="price" v-bind="priceRange" />
           </label>
         </div>
       </div>
     </div>
-    <div
-      v-for="fruit in fruits"
-      :ref="fruit.id"
-      :key="fruit.id"
-      :class="`fruit--${fruit.state}`"
-      class="fruit"
-    >
-      {{ fruit.name }}
-      <button @click="deleteFruit(fruit.id)">Delete</button>
+    <div class="row is-multiline pt-6">
+      <div
+        v-for="fruit in fruits"
+        :key="fruit.id"
+        class="col-12-mobile col-6-tablet col-4-desktop fruit-container"
+      >
+        <FruitCard :fruit="fruit" />
+      </div>
     </div>
-    <button v-if="!fruits.length && search" @click="addFruit">Add fruit</button>
   </section>
+  <!-- {{ fruit.name }}
+      <button @click="deleteFruit(fruit.id)">Delete</button> -->
+  <!-- <button v-if="!fruits.length && search" @click="addFruit">Add fruit</button> -->
 </template>
 
 <script>
 import { Query } from "@/utils";
 import Select from "@/components/Select";
 import PriceSlider from "@/components/PriceSlider";
+import FruitCard from "@/components/FruitCard";
+import Modal from "@/components/Modal";
 export default {
   name: "Home",
   components: {
     Select,
     PriceSlider,
+    FruitCard,
+    Modal,
   },
   data() {
     return {
+      modal: false,
       search: "",
       states: [],
       taste: [],
-      price: [this.$store.getters.price.min, this.$store.getters.price.max],
+      price: null,
     };
   },
   beforeRouteEnter(_to, _from, next) {
     next((vm) => vm.fetchFruits());
   },
   computed: {
+    priceRange() {
+      return this.$store.getters.price;
+    },
     fruits() {
       const fruits = this.$store.getters.fruits;
 
-      return new Query(fruits)
+      const query = new Query(fruits)
         .where((fruit) =>
           fruit.name.toLowerCase().includes(this.search.toLowerCase())
         )
         .whereIn("state", this.states)
-        .whereIn("taste", this.taste)
-        .where(
+        .whereIn("taste", this.taste);
+
+      if (this.price)
+        query.where(
           (fruit) =>
             fruit.price >= this.price[0] && fruit.price <= this.price[1]
-        )
-        .get();
+        );
+
+      return query.get();
     },
   },
   methods: {
     async fetchFruits() {
       try {
         await this.$store.dispatch("fetchFruits");
+        console.log("price: ", this.priceRange);
+        const { min, max } = this.priceRange;
+        this.price = [min, max];
       } catch (error) {
         console.log("error in cmp: ", error);
       }
@@ -134,15 +152,18 @@ export default {
   opacity: 0.4;
   pointer-events: none;
 }
-.fruit {
-  &--rotten {
-    color: red;
-  }
-  &--healthy {
-    color: green;
-  }
-  &--rotting {
-    color: yellow;
+.filters {
+  position: sticky;
+  top: 3.25rem;
+  z-index: 1;
+  background: #2a9d8f;
+}
+.fruit-container {
+  height: auto;
+  &::before {
+    content: "";
+    padding-top: 66%;
+    float: left;
   }
 }
 </style>

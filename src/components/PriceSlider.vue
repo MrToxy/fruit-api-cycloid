@@ -1,7 +1,9 @@
 <template>
   <vue-slider
-    v-bind="$props"
+    :min="min"
+    :max="max"
     :enable-cross="false"
+    :value="value"
     @change="(value) => $emit('input', value)"
   ></vue-slider>
 </template>
@@ -17,10 +19,12 @@ export default {
     min: {
       type: Number,
       required: false,
+      default: 0,
     },
     max: {
       type: Number,
       required: false,
+      default: 0.1,
     },
     value: {
       type: Array,
