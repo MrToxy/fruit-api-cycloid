@@ -144,7 +144,7 @@ export default {
 .chip {
   display: inline-block;
   border-radius: 10px;
-  background: red;
+  background: #2a9d8f;
   padding: 0.5rem 0.5rem;
 }
 .selected__option {
@@ -153,8 +153,9 @@ export default {
     cursor: pointer;
     padding: 1rem;
   }
+  &:hover,
   &.is-selected {
-    background: blue;
+    background: #264653;
     color: white;
   }
 }

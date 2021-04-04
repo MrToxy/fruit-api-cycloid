@@ -2,7 +2,7 @@
   <transition name="fade" appear>
     <div
       v-if="value"
-      class="modal-backdrop is-flex is-align-items-center is-justify-content-center"
+      class="modal-backdrop is-flex has-text-primary is-align-items-center is-justify-content-center"
     >
       <div class="modal-container">
         <h2 class="modal-title has-text-success">Modal Title</h2>

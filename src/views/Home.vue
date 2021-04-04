@@ -1,6 +1,6 @@
 <template>
   <section class="section">
-    <Modal v-model="modal" />
+    <Modal v-if="modal" v-model="modal" />
     <div class="filters">
       <div class="row is-multiline">
         <div class="col-12-mobile col-6-tablet">
@@ -70,7 +70,7 @@ import { Query } from "@/utils";
 import Select from "@/components/Select";
 import PriceSlider from "@/components/PriceSlider";
 import FruitCard from "@/components/FruitCard";
-import Modal from "@/components/Modal";
+const Modal = () => import("@/components/Modal");
 export default {
   name: "Home",
   components: {
