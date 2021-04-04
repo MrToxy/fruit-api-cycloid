@@ -1,0 +1,10 @@
+@use '../base/variables' as *;
+
+@each $color, $value in $colors {
+  .has-background-#{$color} {
+    background-color: $value;
+  }
+  .has-text-#{$color} {
+    color: $value;
+  }
+}

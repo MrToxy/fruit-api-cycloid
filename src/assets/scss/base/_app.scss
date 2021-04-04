@@ -1,27 +1,21 @@
-@use 'variables' as *;
-
-.app {
-  &-header {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    background: red;
-  }
-  &-navbar {
-    min-height: $navbar-height;
-    display: flex;
-    .container {
-      flex: 1;
-    }
-  }
-  &-main {
-    padding-top: $navbar-height;
-  }
-}
+@use '../app' as *;
 
 .container {
   max-width: $container-max-width + ($gap * 2);
   width: auto;
   padding: 0 $gap;
   margin: 0 auto;
+}
+
+section.section {
+  padding: 1.25rem 0;
+  @include tablet {
+    padding: 1.25rem 3rem;
+  }
+  &.large {
+    padding: 3rem 0;
+    @include tablet {
+      padding: 3rem 6rem;
+    }
+  }
 }

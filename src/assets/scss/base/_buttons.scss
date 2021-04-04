@@ -1,0 +1,13 @@
+@use '../app' as *;
+
+.button {
+  border-radius: 3px;
+  cursor: pointer;
+  outline: none;
+  border: none;
+  &.icon {
+    background-color: rgba(map-get($colors, primary), 0.4);
+    color: white;
+    font-size: 1.25rem;
+  }
+}

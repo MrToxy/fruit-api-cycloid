@@ -1,0 +1,58 @@
+@use '../app' as *;
+
+%icon {
+  position: absolute;
+  width: 2.5em;
+  top: 0;
+  height: 2.5em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  button {
+    height: 100%;
+    width: 100%;
+  }
+}
+input:not([type="checkbox"]) {
+  height: 2.5rem;
+  padding: $input-padding;
+  border-radius: 3px;
+  border: none;
+  outline: none;
+  width: 100%;
+  max-width: 100%;
+  &::placeholder {
+    color: map-get($colors, primary);
+  }
+}
+
+.control {
+  position: relative;
+  &.has-icon-left {
+    input {
+      padding-left: 2.5rem;
+      position: relative;
+    }
+    .icon {
+      @extend %icon;
+      left: 0;
+      button {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+      }
+    }
+  }
+  &.has-icon-right {
+    input {
+      padding-right: 2.5rem;
+    }
+    .icon {
+      @extend %icon;
+      right: 0;
+      button {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+      }
+    }
+  }
+}

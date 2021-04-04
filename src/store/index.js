@@ -52,11 +52,17 @@ export default new Vuex.Store({
       return prices;
     },
     states: (state, getters) =>
-      new Set(
-        getters.fruits.reduce((acc, fruit) => acc.concat(fruit.state), [])
+      Array.from(
+        new Set(
+          getters.fruits.reduce((acc, fruit) => acc.concat(fruit.state), [])
+        )
       ),
     taste: (state) =>
-      new Set(state.fruits.reduce((acc, fruit) => acc.concat(fruit.taste), [])),
+      Array.from(
+        new Set(
+          state.fruits.reduce((acc, fruit) => acc.concat(fruit.taste), [])
+        )
+      ),
   },
   mutations: {
     SET_FRUITS(state, fruits) {
