@@ -1,7 +1,6 @@
 /* eslint-disable no-unreachable */
 import Vue from "vue";
 import Vuex from "vuex";
-import $api from "@/api";
 import { normalizeFruits, diffInDaysBetweenDates } from "@/utils";
 Vue.use(Vuex);
 
@@ -51,7 +50,7 @@ export default new Vuex.Store({
           return acc;
         },
 
-        { min: null, max: null }
+        { min: 0, max: 0 }
       );
       return prices;
     },
@@ -72,6 +71,9 @@ export default new Vuex.Store({
     SET_FRUITS(state, fruits) {
       state.fruits = fruits;
     },
+    ADD_FRUIT(state, fruit) {
+      state.fruits.push(fruit);
+    },
     DELETE_FRUIT(state, id) {
       const idx = state.fruits.findIndex((fruit) => fruit.id === id);
       if (idx !== -1) state.fruits.splice(idx, 1);
@@ -79,13 +81,17 @@ export default new Vuex.Store({
   },
   actions: {
     async fetchFruits({ commit }) {
-      const { data: fruits } = await $api.all();
+      const { data: fruits } = await this.$api.all();
       const normalizedFruits = await normalizeFruits(fruits);
-      commit("SET_FRUITS", normalizedFruits);
+      commit("SET_FRUITS", [...normalizedFruits, ...fruits.data.more]);
+    },
+    async addFruit({ commit }, fruit) {
+      const { data } = await this.$api.store(fruit);
+      commit("ADD_FRUIT", data);
     },
     async deleteFruit({ commit }, { id }) {
+      await this.$api.delete(id);
       commit("DELETE_FRUIT", id);
-      await $api.delete(id);
     },
   },
 });

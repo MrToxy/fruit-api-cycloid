@@ -2,7 +2,7 @@
   <div>
     <transition name="fade" appear>
       <div
-        v-if="modalOpen"
+        v-show="modalOpen"
         @click="onClickOutside"
         :class="{ 'modal--persistent': persistent }"
         class="modal-backdrop is-flex has-text-primary is-align-items-center is-justify-content-center"
@@ -20,7 +20,7 @@
           <div class="modal-actions">
             <slot name="actions">
               <div
-                v-if="actions"
+                v-if="defaultActions"
                 class="row is-multiline is-justify-content-center"
               >
                 <div class="col-12-mobile col-4-tablet">
@@ -52,7 +52,7 @@ export default {
       required: false,
       default: false,
     },
-    actions: {
+    defaultActions: {
       type: Boolean,
       required: false,
       default: false,

@@ -4,11 +4,12 @@ import router from "./router";
 import store from "./store";
 import "@/plugins/vee-validate";
 import "@/assets/scss/main.scss";
+import api from "./api";
 Vue.config.productionTip = false;
 
-// Vue.prototype.$api = api;
+Vue.prototype.$api = api;
+store.$api = api;
 // We could also inject the api in the store
-// store.$api = api;
 
 new Vue({
   router,

@@ -60,7 +60,22 @@
       <FieldWithValidation name="expire date" rules="required">
         <Datepicker :inline="true" v-model="form.expires" />
       </FieldWithValidation>
-      <button class="button">Submit</button>
+      <div class="row is-multiline is-justify-content-center mt-2">
+        <div class="col-12-mobile col-4-tablet">
+          <button :disabled="loading" class="button is-fullwidth">
+            Submit
+          </button>
+        </div>
+        <div class="col-12-mobile col-4-tablet">
+          <button
+            :disabled="loading"
+            class="button is-fullwidth"
+            @click.prevent="$emit('cancel')"
+          >
+            Cancel
+          </button>
+        </div>
+      </div>
     </form>
   </ValidationObserver>
 </template>
@@ -79,6 +94,7 @@ export default {
     Datepicker,
   },
   data: () => ({
+    loading: false,
     form: {
       isFruit: true,
       name: "",
@@ -92,18 +108,14 @@ export default {
   }),
 
   methods: {
+    toggleLoading() {
+      this.loading = !this.loading;
+    },
     onSubmit() {
-      console.log("form: ", this.form);
-      this.form = {
-        isFruit: true,
-        name: "",
-        image: "",
-        price: "",
-        color: "#ffffff",
-        description: "",
-        taste: "",
-        expires: "",
-      };
+      this.$emit("submit", {
+        form: this.form,
+        toggleLoading: this.toggleLoading,
+      });
     },
   },
 };

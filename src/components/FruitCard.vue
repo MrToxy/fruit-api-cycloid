@@ -11,12 +11,13 @@
       ref="card"
       :class="fruit.state"
     >
-      <div class="fruit-card__header">
+      <div class="fruit-card__header is-flex is-justify-content-space-between">
         <span class="fruit-card__expires" v-text="getExpiration(fruit)" />
         <span class="fruit-card__price" v-text="`$${fruit.price}`" />
       </div>
       <img
         class="fruit-card__image"
+        :style="{ color: fruit.color }"
         ref="cardImage"
         :data-src="fruit.image"
         height="64"

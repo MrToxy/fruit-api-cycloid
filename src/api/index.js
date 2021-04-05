@@ -22,7 +22,7 @@ export default {
       expires,
     } = data;
 
-    return $axios.post(endpoint, {
+    return $axios.post(endpoint(), {
       isFruit,
       name,
       image,
