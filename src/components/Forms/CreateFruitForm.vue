@@ -93,7 +93,17 @@ export default {
 
   methods: {
     onSubmit() {
-      console.log("submit: ");
+      console.log("form: ", this.form);
+      this.form = {
+        isFruit: true,
+        name: "",
+        image: "",
+        price: "",
+        color: "#ffffff",
+        description: "",
+        taste: "",
+        expires: "",
+      };
     },
   },
 };

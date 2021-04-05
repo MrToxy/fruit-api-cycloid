@@ -4,7 +4,7 @@
       <div class="row is-multiline">
         <div class="col-12-mobile col-4-tablet">
           <label>
-            <p>Name</p>
+            <!-- <p>Name</p> -->
             <div class="control has-icon-right">
               <input
                 type="text"
@@ -21,7 +21,7 @@
         </div>
         <div class="col-12-mobile col-3-tablet">
           <label>
-            <p>State</p>
+            <!-- <p>State</p> -->
             <Select
               v-model="states"
               placeholder="Select State"
@@ -31,7 +31,7 @@
         </div>
         <div class="col-12-mobile col-3-tablet">
           <label>
-            <p>Taste</p>
+            <!-- <p>Taste</p> -->
             <Select
               v-model="taste"
               placeholder="Select Taste"
@@ -45,7 +45,7 @@
               <CreateFruitForm />
             </template>
             <template #activator="{ listeners }">
-              <button class="button is-inverted" v-on="listeners">
+              <button class="button is-inverted is-fullwidth" v-on="listeners">
                 Add fruit
               </button>
             </template>
@@ -58,7 +58,7 @@
       <div class="row is-justify-content-center pt-2">
         <div class="col-12-mobile col-6-tablet col-4-desktop">
           <label>
-            <p @click="modal = !modal">Price Range</p>
+            <p>Price Range</p>
             <PriceSlider v-if="price" v-model="price" v-bind="priceRange" />
           </label>
         </div>

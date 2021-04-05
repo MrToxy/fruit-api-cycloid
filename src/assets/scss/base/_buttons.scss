@@ -5,7 +5,8 @@ button.button {
   background: map-get($colors, success);
   color: white;
   width: 150px;
-  height: 50px;
+  min-height: 2.5rem;
+  padding: $input-padding;
   cursor: pointer;
   outline: none;
   border: none;
