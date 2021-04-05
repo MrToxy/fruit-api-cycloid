@@ -1,3 +1,13 @@
+@use '../app' as *;
+
+%fullscreen {
+  height: 100%;
+  width: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  border-radius: 0px;
+}
+
 .modal {
   &-backdrop {
     position: fixed;
@@ -17,14 +27,22 @@
     border-radius: 10px;
     padding: 1.5rem;
     width: 600px;
+    max-height: 90%;
     max-width: 90%;
+    overflow-y: auto;
     // display: flex;
     // flex-direction: column;
     &.is-fullscreen {
-      height: 100%;
-      width: 100%;
-      max-width: 100%;
-      border-radius: 0px;
+      @extend %fullscreen;
+    }
+    &.is-fullscreen-mobile {
+      @include mobile {
+        height: 100%;
+        width: 100%;
+        max-width: 100%;
+        max-height: 100%;
+        border-radius: 0px;
+      }
     }
   }
   &-content {

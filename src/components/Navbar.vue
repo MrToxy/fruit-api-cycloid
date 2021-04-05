@@ -3,13 +3,15 @@
     <nav class="app-navbar">
       <div class="container">
         <div class="navbar-brand">
-          <router-link class="navbar-item has-text-yellow" to="/"
-            >The fruits</router-link
+          <router-link
+            class="is-uppercase is-size-2 no-decoration navbar-item has-text-yellow"
+            to="/"
+            >Fruitsy</router-link
           >
         </div>
-        <div class="app-navbar-menu">
+        <!-- <div class="app-navbar-menu">
           <h3>something here</h3>
-        </div>
+        </div> -->
       </div>
     </nav>
   </header>

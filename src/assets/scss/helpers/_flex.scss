@@ -15,6 +15,10 @@
   flex-wrap: wrap;
 }
 
+.is-flex-grow-1 {
+  flex-grow: 1;
+}
+
 .row {
   $gap: 8px;
   display: flex;

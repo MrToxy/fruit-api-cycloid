@@ -9,8 +9,13 @@
   height: 100%;
   &__header {
     display: flex;
+    text-align: initial;
     justify-content: space-between;
     padding-bottom: 3rem;
+    align-items: center;
+  }
+  &__expires {
+    font-size: 0.75rem;
   }
 
   &__image {

@@ -1,13 +1,28 @@
 @use '../app' as *;
 
-.button {
+button.button {
   border-radius: 3px;
+  background: map-get($colors, success);
+  color: white;
+  width: 150px;
+  height: 50px;
   cursor: pointer;
   outline: none;
   border: none;
+  &.is-inverted {
+    background: white;
+    color: map-get($colors, success);
+  }
   &.icon {
     background-color: rgba(map-get($colors, primary), 0.4);
     color: white;
     font-size: 1.25rem;
+  }
+  &.is-fullwidth {
+    width: 100%;
+  }
+  &:disabled {
+    pointer-events: none;
+    background: rgba(map-get($colors, primary), 0.4);
   }
 }

@@ -89,7 +89,7 @@ export default {
 }
 
 .selected {
-  padding: 0.25rem;
+  padding: 0 0.25rem;
   display: flex;
   align-items: center;
   max-width: 100%;

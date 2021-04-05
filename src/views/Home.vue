@@ -1,9 +1,8 @@
 <template>
   <section class="section">
-    <Modal v-if="modal" v-model="modal" />
     <div class="filters">
       <div class="row is-multiline">
-        <div class="col-12-mobile col-6-tablet">
+        <div class="col-12-mobile col-4-tablet">
           <label>
             <p>Name</p>
             <div class="control has-icon-right">
@@ -40,8 +39,23 @@
             />
           </label>
         </div>
+        <div class="col-12-mobile col-2-tablet">
+          <Modal title="Create new fruit" persistent v-model="modal">
+            <template #default>
+              <CreateFruitForm />
+            </template>
+            <template #activator="{ listeners }">
+              <button class="button is-inverted" v-on="listeners">
+                Add fruit
+              </button>
+            </template>
+            <template #actions>
+              <button class="button" @click="modal = false">Cancel</button>
+            </template>
+          </Modal>
+        </div>
       </div>
-      <div class="row is-justify-content-center">
+      <div class="row is-justify-content-center pt-2">
         <div class="col-12-mobile col-6-tablet col-4-desktop">
           <label>
             <p @click="modal = !modal">Price Range</p>
@@ -70,6 +84,7 @@ import { Query } from "@/utils";
 import Select from "@/components/Select";
 import PriceSlider from "@/components/PriceSlider";
 import FruitCard from "@/components/FruitCard";
+import CreateFruitForm from "@/components/Forms/CreateFruitForm";
 const Modal = () => import("@/components/Modal");
 export default {
   name: "Home",
@@ -78,6 +93,7 @@ export default {
     PriceSlider,
     FruitCard,
     Modal,
+    CreateFruitForm,
   },
   data() {
     return {
@@ -154,7 +170,7 @@ export default {
 }
 .filters {
   position: sticky;
-  top: 3.25rem;
+  top: 4.25rem;
   z-index: 1;
   background: #2a9d8f;
 }
