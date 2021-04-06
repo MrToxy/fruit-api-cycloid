@@ -21,9 +21,11 @@
     background: rgba(#264653, 0.9);
     backdrop-filter: blur(10px);
   }
+
   &-container {
     background: white;
     text-align: center;
+    position: relative;
     border-radius: 10px;
     padding: 1.5rem;
     width: 600px;

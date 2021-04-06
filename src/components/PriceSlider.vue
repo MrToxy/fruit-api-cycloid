@@ -4,6 +4,7 @@
     :max="max"
     :enable-cross="false"
     :value="value"
+    v-bind="$attrs"
     @change="(value) => $emit('input', value)"
   ></vue-slider>
 </template>
@@ -12,6 +13,7 @@ import VueSlider from "vue-slider-component";
 import "vue-slider-component/theme/default.css";
 export default {
   name: "PriceSlider",
+  inheritAttrs: false,
   components: {
     VueSlider,
   },

@@ -10,6 +10,17 @@ button.button {
   cursor: pointer;
   outline: none;
   border: none;
+  &.is-loading {
+    color: transparent !important;
+    pointer-events: none;
+    @include loader;
+  }
+  &.is-medium {
+    width: 250px;
+  }
+  &.is-danger {
+    background: map-get($colors, danger);
+  }
   &.is-inverted {
     background: white;
     color: map-get($colors, success);

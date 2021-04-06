@@ -68,7 +68,13 @@
           <div class="col-12-mobile col-6-tablet col-4-desktop">
             <label>
               <p>Price Range</p>
-              <PriceSlider v-if="price" v-model="price" v-bind="priceRange" />
+              <PriceSlider
+                tooltip="always"
+                tooltip-placement="bottom"
+                v-if="price"
+                v-model="price"
+                v-bind="priceRange"
+              />
             </label>
           </div>
         </div>
@@ -151,6 +157,7 @@ export default {
       try {
         toggleLoading();
         await this.$store.dispatch("addFruit", form);
+        this.$events.fire("notification", "testing");
       } catch (error) {
         console.log("error: ", error);
       } finally {

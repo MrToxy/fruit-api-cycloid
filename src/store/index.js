@@ -72,6 +72,7 @@ export default new Vuex.Store({
       state.fruits = fruits;
     },
     ADD_FRUIT(state, fruit) {
+      console.log("fruit added:", fruit);
       state.fruits.push(fruit);
     },
     DELETE_FRUIT(state, id) {

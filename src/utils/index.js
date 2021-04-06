@@ -72,3 +72,9 @@ export function fileToBase64(file) {
     reader.onerror = (error) => reject(error);
   });
 }
+
+export function sleep(timeout = 3000) {
+  return new Promise((resolve) => {
+    setTimeout(resolve, timeout);
+  });
+}

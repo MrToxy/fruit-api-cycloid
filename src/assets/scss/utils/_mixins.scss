@@ -4,7 +4,28 @@
     @content;
   }
 }
-
+@mixin loader {
+  position: relative;
+  &::after {
+    content: "";
+    left: calc(50% - (1.5em / 2));
+    top: calc(50% - (1.5em / 2));
+    position: absolute !important;
+    animation: rotate 0.5s linear infinite;
+    border: 2px solid map-get($colors, yellow);
+    border-radius: 9999px;
+    border-right-color: transparent;
+    border-top-color: transparent;
+    display: block;
+    height: 1.5em;
+    width: 1.5em;
+    @keyframes rotate {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+  }
+}
 @mixin tablet {
   @media (min-width: map-get($breakpoints, tablet)) {
     @content;

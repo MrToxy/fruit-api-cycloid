@@ -13,7 +13,7 @@
         >
           <h2 class="modal-title has-text-success" v-text="title" />
           <div class="modal-content py-5">
-            <slot>
+            <slot :toggle="toggleModal">
               <form>asdasdsad</form>
             </slot>
           </div>
@@ -92,6 +92,9 @@ export default {
     },
   },
   methods: {
+    toggleModal() {
+      this.modalOpen = !this.modalOpen;
+    },
     onClickOutside() {
       if (!this.persistent) this.onToggle();
     },

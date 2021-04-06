@@ -16,6 +16,9 @@ $sizes: 6;
 .is-uppercase {
   text-transform: uppercase;
 }
+.is-capitalize {
+  text-transform: capitalize;
+}
 
 @for $i from 1 through $sizes {
   .is-size-#{$i} {

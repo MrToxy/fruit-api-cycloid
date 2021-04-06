@@ -62,7 +62,11 @@
       </FieldWithValidation>
       <div class="row is-multiline is-justify-content-center mt-2">
         <div class="col-12-mobile col-4-tablet">
-          <button :disabled="loading" class="button is-fullwidth">
+          <button
+            :disabled="loading"
+            :class="{ 'is-loading': loading }"
+            class="button is-fullwidth"
+          >
             Submit
           </button>
         </div>

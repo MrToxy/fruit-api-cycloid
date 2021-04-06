@@ -3,6 +3,7 @@ import VueRouter from "vue-router";
 
 const Home = () => import("@/views/Home.vue");
 const FruitDetail = () => import("@/views/FruitDetail.vue");
+const NotFound = () => import("@/views/NotFound.vue");
 
 Vue.use(VueRouter);
 
@@ -13,9 +14,20 @@ const routes = [
     component: Home,
   },
   {
-    path: "/:id",
+    path: "/fruit/:id",
     name: "fruit.detail",
+    props: true,
     component: FruitDetail,
+  },
+  {
+    name: "notfound",
+    path: "/404",
+    props: true,
+    component: NotFound,
+  },
+  {
+    path: "*",
+    redirect: { name: "notfound" },
   },
 ];
 

@@ -1,5 +1,5 @@
 $sizes: 6;
-$directions: "l", "r", "t", "b";
+$directions: "l", "r", "t", "b", "y", "x";
 
 @for $i from 0 through $sizes {
   $calc: $i * 1rem;
@@ -23,6 +23,12 @@ $directions: "l", "r", "t", "b";
       @if ($direction == "b") {
         padding-bottom: $calc;
       }
+      @if ($direction == "x") {
+        padding: 0 $calc;
+      }
+      @if ($direction == "y") {
+        padding: $calc 0;
+      }
     }
     .m#{$direction}-#{$i} {
       @if ($direction == "l") {
@@ -36,6 +42,12 @@ $directions: "l", "r", "t", "b";
       }
       @if ($direction == "b") {
         margin-bottom: $calc;
+      }
+      @if ($direction == "x") {
+        margin: 0 $calc;
+      }
+      @if ($direction == "x") {
+        margin: $calc 0;
       }
     }
   }

@@ -1,8 +1,9 @@
 import { extend } from "vee-validate";
-import { required, image } from "vee-validate/dist/rules";
+import { required, image, is } from "vee-validate/dist/rules";
 
 extend("required", { ...required, message: "{_field_} is required" });
 extend("image", image);
+extend("is", is);
 
 extend("min_value", {
   validate: (value, { min }) => value >= min,
