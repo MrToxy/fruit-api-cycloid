@@ -22,7 +22,7 @@
           :class="{ 'is-selected': selected.includes(option) }"
           class="has-text-success selected__option"
         >
-          <label style="display: block" :for="`${id}-${option}`">
+          <label class="select__option-label is-block" :for="`${id}-${option}`">
             <input
               hidden
               :id="`${id}-${option}`"
@@ -59,14 +59,13 @@ export default {
   computed: {
     filteredOptions() {
       return this.options.filter((option) =>
-        option.toLowerCase().includes(this.search.toLowerCase())
+        String(option).toLowerCase().includes(this.search.toLowerCase())
       );
     },
   },
 
   methods: {
     removeSelected(selected) {
-      console.log("selected:", selected);
       const idx = this.selected.indexOf(selected);
       if (idx !== -1) this.selected.splice(idx, 1);
     },

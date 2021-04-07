@@ -13,15 +13,13 @@
         >
           <h2 class="modal-title has-text-success" v-text="title" />
           <div class="modal-content py-5">
-            <slot :toggle="toggleModal">
-              <form>asdasdsad</form>
-            </slot>
+            <slot :toggle="toggleModal"> </slot>
           </div>
           <div class="modal-actions">
             <slot name="actions">
               <div
                 v-if="defaultActions"
-                class="row is-multiline is-justify-content-center"
+                class="row moda-actions__default is-multiline is-justify-content-center"
               >
                 <div class="col-12-mobile col-4-tablet">
                   <button class="button is-fullwidth">Accept</button>
@@ -96,11 +94,12 @@ export default {
       this.modalOpen = !this.modalOpen;
     },
     onClickOutside() {
-      if (!this.persistent) this.onToggle();
+      if (!this.persistent) {
+        this.onToggle();
+        this.modalOpen = false;
+      }
     },
     onToggle() {
-      console.log("toggle");
-
       if (this.open) {
         document.documentElement.style.overflowY = "hidden";
       } else {

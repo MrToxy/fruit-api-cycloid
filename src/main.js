@@ -12,7 +12,6 @@ Vue.prototype.$api = api;
 Vue.prototype.$events = eventBus;
 
 store.$api = api;
-store.$events = eventBus;
 
 new Vue({
   router,
