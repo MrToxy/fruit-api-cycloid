@@ -78,3 +78,11 @@ export function sleep(timeout = 3000) {
     setTimeout(resolve, timeout);
   });
 }
+
+export const formatPrice = (price) =>
+  new Intl.NumberFormat("fr-FR", { style: "currency", currency: "EUR" }).format(
+    price
+  );
+
+export const formatDate = (date) =>
+  new Intl.DateTimeFormat("fr-FR").format(date);

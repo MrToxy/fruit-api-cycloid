@@ -13,7 +13,7 @@
     >
       <div class="fruit-card__header is-flex is-justify-content-space-between">
         <span class="fruit-card__expires" v-text="getExpiration(fruit)" />
-        <span class="fruit-card__price" v-text="`$${fruit.price}`" />
+        <span class="fruit-card__price" v-text="formatPrice(fruit.price)" />
       </div>
       <img
         class="fruit-card__image"
@@ -32,7 +32,7 @@
   </router-link>
 </template>
 <script>
-import { daysToDateObject } from "@/utils";
+import { daysToDateObject, formatPrice } from "@/utils";
 export default {
   name: "FruitCard",
   props: {
@@ -61,6 +61,7 @@ export default {
         observer.disconnect();
       }
     },
+    formatPrice,
     getExpiration({ expiresIn = 0 }) {
       const { weeks, hours, days } = daysToDateObject(expiresIn);
 

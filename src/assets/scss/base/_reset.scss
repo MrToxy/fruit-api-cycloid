@@ -1,4 +1,4 @@
-@use 'variables' as  *;
+@use '../app' as *;
 *,
 *::after,
 *::before {
@@ -16,7 +16,13 @@ html {
   -webkit-text-size-adjust: 100%;
   -moz-text-size-adjust: 100%;
   text-size-adjust: 100%;
-  font-size: $body-size;
+
+  @include fluid-type(
+    $body-min-width,
+    $container-max-width,
+    $min-body-size,
+    $body-size
+  );
 }
 
 body {

@@ -86,6 +86,13 @@ export default new Vuex.Store({
       const normalizedFruits = await normalizeFruits(fruits);
       commit("SET_FRUITS", [...normalizedFruits, ...fruits.data.more]);
     },
+    async showFruit({ getters }, { id }) {
+      const fruit = getters.fruits.find((fruit) => fruit.id === id);
+      if (fruit) return fruit;
+
+      const { data } = await this.$api.show(id);
+      return data;
+    },
     async addFruit({ commit }, fruit) {
       const { data } = await this.$api.store(fruit);
       commit("ADD_FRUIT", data);
