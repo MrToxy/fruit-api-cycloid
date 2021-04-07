@@ -2,7 +2,7 @@
 
 %icon {
   position: absolute;
-  width: 2.5em;
+  width: 4.5em;
   top: 0;
   height: 100%;
   display: flex;
@@ -21,7 +21,7 @@
 }
 input:not([type="checkbox"]):not([type="color"]),
 textarea {
-  min-height: 2.5rem;
+  // min-height: 2.5rem;
   padding: $input-padding;
   border-radius: 3px;
   border: none;
@@ -47,13 +47,14 @@ textarea {
 
   &.has-icon-left {
     input {
-      padding-left: 2.5rem;
+      padding-left: 4.5rem;
       position: relative;
     }
     .icon {
       @extend %icon;
       left: 0;
       button {
+        padding: 0;
         border-top-right-radius: 0;
         border-bottom-right-radius: 0;
       }
@@ -77,12 +78,13 @@ textarea {
   }
   &.has-icon-right {
     input {
-      padding-right: 2.5rem;
+      padding-right: 4.5rem;
     }
     .icon {
       @extend %icon;
       right: 0;
       button {
+        padding: 0;
         border-top-left-radius: 0;
         border-bottom-left-radius: 0;
       }

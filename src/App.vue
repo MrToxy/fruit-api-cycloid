@@ -4,7 +4,7 @@
 
     <transition name="slide">
       <div
-        v-if="notification.show"
+        v-if="notification.message"
         :class="`is-${notification.type}`"
         class="notification is-borderless is-fixed-top"
       >
@@ -27,7 +27,6 @@ export default {
   },
   data: () => ({
     notification: {
-      show: false,
       type: "success",
       message: "",
     },
@@ -41,7 +40,7 @@ export default {
           ...notification,
         };
         await sleep();
-        this.notification.show = false;
+        this.notification.message = "";
       });
     });
   },

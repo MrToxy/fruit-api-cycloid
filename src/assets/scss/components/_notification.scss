@@ -6,6 +6,7 @@ $primary: map-get($colors, primary);
 
 .notification {
   border-radius: $nofitication-radius;
+  z-index: 12;
   min-height: $navbar-height-mobile;
   background: rgba($primary, 0.7);
   text-align: center;
@@ -18,6 +19,9 @@ $primary: map-get($colors, primary);
   }
   &.is-success {
     background: $success;
+  }
+  &.is-danger {
+    background: $danger;
   }
   &.is-opaque {
     background: rgba($primary, 0.9);

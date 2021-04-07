@@ -4,53 +4,40 @@
       <div class="filters">
         <div class="row is-multiline">
           <div class="col-12-mobile col-4-tablet">
-            <label>
-              <!-- <p>Name</p> -->
-              <div class="control has-icon-right">
-                <input
-                  type="text"
-                  v-model.trim="search"
-                  placeholder="search fruit"
-                />
-                <span class="icon">
-                  <button @click="search = ''" class="button icon">
-                    &times;
-                  </button>
-                </span>
-              </div>
-            </label>
+            <div class="control has-icon-right">
+              <input
+                type="text"
+                v-model.trim="search"
+                placeholder="search fruit"
+              />
+              <span class="icon">
+                <button @click="search = ''" class="button icon">
+                  &times;
+                </button>
+              </span>
+            </div>
           </div>
           <div class="col-12-mobile col-3-tablet">
-            <label>
-              <!-- <p>State</p> -->
-              <Select
-                v-model="states"
-                placeholder="Select State"
-                :options="$store.getters.states"
-              />
-            </label>
+            <Select
+              v-model="states"
+              placeholder="Select State"
+              :options="$store.getters.states"
+            />
           </div>
           <div class="col-12-mobile col-3-tablet">
-            <label>
-              <!-- <p>Taste</p> -->
-              <Select
-                v-model="taste"
-                placeholder="Select Taste"
-                :options="$store.getters.taste"
-              />
-            </label>
+            <Select
+              v-model="taste"
+              placeholder="Select Taste"
+              :options="$store.getters.taste"
+            />
           </div>
           <div class="col-12-mobile col-2-tablet">
-            <Modal
-              :default-actions="false"
-              title="Create new fruit"
-              persistent
-              v-model="modal"
-            >
-              <template #default>
+            <Modal :default-actions="false" title="Create new fruit" persistent>
+              <template #default="{ toggle }">
                 <CreateFruitForm
-                  @submit="onFormSubmit"
-                  @cancel="modal = false"
+                  @submit="(form) => onFormSubmit(form, toggle)"
+                  @error="onFormError"
+                  @cancel="toggle"
                 />
               </template>
               <template #activator="{ listeners }">
@@ -71,7 +58,6 @@
               <PriceSlider
                 tooltip="always"
                 tooltip-placement="bottom"
-                v-if="price"
                 v-model="price"
                 v-bind="priceRange"
               />
@@ -110,13 +96,13 @@ export default {
   },
   data() {
     return {
-      modal: false,
       search: "",
       states: [],
       taste: [],
-      price: null,
+      price: [],
     };
   },
+
   beforeRouteEnter(_to, _from, next) {
     next((vm) => vm.fetchFruits());
   },
@@ -147,22 +133,27 @@ export default {
     async fetchFruits() {
       try {
         await this.$store.dispatch("fetchFruits");
-        const { min, max } = this.priceRange;
-        this.price = [min, max];
       } catch (error) {
         console.log("error in cmp: ", error);
       }
     },
-    async onFormSubmit({ form, toggleLoading }) {
-      try {
-        toggleLoading();
-        await this.$store.dispatch("addFruit", form);
-        this.$events.fire("notification", "testing");
-      } catch (error) {
-        console.log("error: ", error);
-      } finally {
-        toggleLoading();
-      }
+    onFormError({ form }) {
+      this.$events.fire("notification", {
+        type: "danger",
+        message: `We were not able to create ${form.name}`,
+      });
+    },
+    onFormSubmit(form, toggle) {
+      toggle();
+      this.$events.fire("notification", {
+        message: `${form.name} was created successfully`,
+      });
+    },
+  },
+  watch: {
+    priceRange({ max, min }) {
+      this.$set(this.price, 0, min);
+      this.$set(this.price, 1, max);
     },
   },
 };

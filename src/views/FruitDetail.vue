@@ -27,65 +27,64 @@
             <h2>{{ formatDate(fruit.expires) }}</h2>
           </div>
         </div>
-        <p
-          class="fruit-detail__description has-text-centered has-text-left-desktop"
-          v-text="fruit.description"
+
+        <p class="fruit-detail__description" v-text="fruit.description" />
+
+        <Modal
+          ref="modal"
+          persistent
+          :default-actions="false"
+          :title="`Delete ${fruit.name}`"
         >
-          <Modal
-            ref="modal"
-            persistent
-            :default-actions="false"
-            :title="`Delete ${fruit.name}`"
-          >
-            <template #default="{ toggle }">
-              <ValidationObserver slim v-slot="{ handleSubmit, valid, reset }">
-                <form @submit.prevent="handleSubmit(onDeleteFruit)">
-                  <FieldWithValidation
-                    name="confirmation"
-                    :rules="{ required: true, is: `DELETE` }"
-                    :placeholder="`to delete type DELETE`"
-                    class="has-border"
-                    v-model="confirmation"
-                  />
-                  <div class="row is-multiline is-justify-content-center mt-2">
-                    <div class="col-12-mobile col-4-tablet">
-                      <button
-                        :disabled="loading || !valid"
-                        :class="{ 'is-loading': loading }"
-                        class="button is-fullwidth"
-                      >
-                        Submit
-                      </button>
-                    </div>
-                    <div class="col-12-mobile col-4-tablet">
-                      <button
-                        :disabled="loading"
-                        class="button is-fullwidth"
-                        @click.prevent="onCancel(reset, toggle)"
-                      >
-                        Cancel
-                      </button>
-                    </div>
+          <template #default="{ toggle }">
+            <ValidationObserver slim v-slot="{ handleSubmit, valid, reset }">
+              <form @submit.prevent="handleSubmit(onDeleteFruit)">
+                <FieldWithValidation
+                  name="confirmation"
+                  :rules="{ required: true, is: `DELETE` }"
+                  :placeholder="`to delete type DELETE`"
+                  class="has-border"
+                  v-model="confirmation"
+                />
+                <div class="row is-multiline is-justify-content-center mt-2">
+                  <div class="col-12-mobile col-4-tablet">
+                    <button
+                      :disabled="loading || !valid"
+                      :class="{ 'is-loading': loading }"
+                      class="button is-fullwidth"
+                    >
+                      Submit
+                    </button>
                   </div>
-                </form>
-              </ValidationObserver>
-            </template>
-            <template #activator="{ listeners }">
-              <button
-                v-on="listeners"
-                class="button is-fullwidth is-danger fruit__link"
-              >
-                Delete Fruit
-              </button>
-            </template>
-          </Modal>
-        </p>
+                  <div class="col-12-mobile col-4-tablet">
+                    <button
+                      :disabled="loading"
+                      class="button is-fullwidth"
+                      @click.prevent="onCancel(reset, toggle)"
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </ValidationObserver>
+          </template>
+          <template #activator="{ listeners }">
+            <button
+              v-on="listeners"
+              class="button is-borderless is-fullwidth is-danger"
+            >
+              Delete Fruit
+            </button>
+          </template>
+        </Modal>
       </div>
     </div>
   </section>
 </template>
 <script>
 /* eslint-disable vue/no-unused-components */
+/* eslint-disable no-unreachable */
 import Modal from "@/components/Modal";
 import { ValidationObserver } from "vee-validate";
 import FieldWithValidation from "@/components/FieldWithValidation";
@@ -140,7 +139,6 @@ export default {
         this.loading = true;
         const fruit = await this.$store.dispatch("showFruit", { id });
         this.fruit = fruit;
-        this.loading = false;
       } catch (error) {
         this.$router.push({
           name: "notfound",
@@ -156,19 +154,23 @@ export default {
     async onDeleteFruit() {
       try {
         this.loading = true;
+
         await this.$store.dispatch("deleteFruit", { id: this.fruit.id });
         this.$refs.modal.toggleModal();
 
         this.$router.push("/").then(() => {
           this.$events.fire("notification", {
-            show: true,
-            type: "success",
-            message: "Delete successfully",
+            message: `${this.fruit.name} was deleted successfully`,
           });
         });
       } catch (error) {
+        this.$events.fire("notification", {
+          type: "danger",
+          message: `Unable to delete ${this.fruit.name}`,
+        });
+        console.log("error deleting fruit: ", error);
+      } finally {
         this.loading = false;
-        console.log("error: ", error);
       }
     },
   },

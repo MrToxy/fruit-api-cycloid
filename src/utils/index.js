@@ -86,3 +86,21 @@ export const formatPrice = (price) =>
 
 export const formatDate = (date) =>
   new Intl.DateTimeFormat("fr-FR").format(date);
+
+function Form(data) {
+  const original = data;
+
+  const _data = {
+    ...data,
+    reset: function () {
+      Object.assign(this, original);
+    },
+  };
+
+  Object.defineProperty(_data, "reset", {
+    enumerable: false,
+  });
+  return _data;
+}
+
+export { Form };

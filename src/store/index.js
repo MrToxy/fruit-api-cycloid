@@ -40,13 +40,13 @@ export default new Vuex.Store({
         };
       }),
 
-    price: (state) => {
-      const prices = state.fruits.reduce(
+    price: (_state, getters) => {
+      const prices = getters.fruits.reduce(
         (acc, { price }) => {
           const parsedPrice = parseFloat(price);
 
-          acc.min = Math.min(acc.min ?? parsedPrice, parsedPrice);
-          acc.max = Math.max(acc.max ?? parsedPrice, parsedPrice);
+          acc.min = Math.min(acc.min, parsedPrice);
+          acc.max = Math.max(acc.max, parsedPrice);
           return acc;
         },
 

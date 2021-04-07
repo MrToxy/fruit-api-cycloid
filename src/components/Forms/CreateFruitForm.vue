@@ -1,6 +1,6 @@
 <template>
-  <ValidationObserver slim v-slot="{ handleSubmit }">
-    <form @submit.prevent="handleSubmit(onSubmit)">
+  <ValidationObserver slim v-slot="{ handleSubmit, reset }">
+    <form @submit.prevent="handleSubmit(() => onSubmit(reset))">
       <FieldWithValidation
         rules="required"
         name="name"
@@ -88,7 +88,7 @@ import { ValidationObserver } from "vee-validate";
 import FieldWithValidation from "@/components/FieldWithValidation";
 import FileUpload from "@/components/FileUpload";
 import Datepicker from "vuejs-datepicker";
-
+import { Form } from "@/utils";
 export default {
   name: "CreateFruitForm",
   components: {
@@ -99,7 +99,7 @@ export default {
   },
   data: () => ({
     loading: false,
-    form: {
+    form: new Form({
       isFruit: true,
       name: "",
       image: "",
@@ -108,18 +108,25 @@ export default {
       description: "",
       taste: "",
       expires: "",
-    },
+    }),
   }),
 
   methods: {
     toggleLoading() {
       this.loading = !this.loading;
     },
-    onSubmit() {
-      this.$emit("submit", {
-        form: this.form,
-        toggleLoading: this.toggleLoading,
-      });
+    async onSubmit(reset) {
+      try {
+        this.loading = true;
+        await this.$store.dispatch("addFruit", this.form);
+        this.$emit("submit", this.form);
+        this.form.reset();
+        reset();
+      } catch (error) {
+        this.$emit("error ", { error, form: this.form });
+      } finally {
+        this.loading = false;
+      }
     },
   },
 };
