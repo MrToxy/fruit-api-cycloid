@@ -20,32 +20,27 @@ npm run serve
 
 ## npm run serve will automatically start the api
 
-```
-
 ### Compiles and minifies for production
 ```
-
 npm run build
-
 ```
 
 ### Lints and fixes files
-```
 
+```
 npm run lint
 
 ```
 
 ### Run tests
+
 ```
-
 npm run test:unit
-
 ```
 
 ### Run tests coverage
-```
 
+```
 npm run test:coverage
 
 ```
