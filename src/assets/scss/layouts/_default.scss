@@ -1,0 +1,32 @@
+@use '../app' as *;
+.app {
+  &-header {
+    // z-index: 10;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: map-get($colors, primary);
+  }
+  &-navbar {
+    height: $navbar-height-mobile;
+    display: flex;
+    align-items: center;
+    .container {
+      flex: 1;
+      display: inherit;
+    }
+    &-menu {
+      margin-left: auto;
+    }
+
+    @include tablet {
+      height: $navbar-height;
+    }
+  }
+  &-main {
+    padding-top: $navbar-height-mobile;
+    @include tablet {
+      padding-top: $navbar-height;
+    }
+  }
+}

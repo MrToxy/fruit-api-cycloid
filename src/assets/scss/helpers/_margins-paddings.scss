@@ -1,0 +1,54 @@
+$sizes: 6;
+$directions: "l", "r", "t", "b", "y", "x";
+
+@for $i from 0 through $sizes {
+  $calc: $i * 1rem;
+  .p-#{$i} {
+    padding: $calc;
+  }
+  .m-#{$i} {
+    margin: $calc;
+  }
+  @each $direction in $directions {
+    .p#{$direction}-#{$i} {
+      @if ($direction == "l") {
+        padding-left: $calc;
+      }
+      @if ($direction == "r") {
+        padding-right: $calc;
+      }
+      @if ($direction == "t") {
+        padding-top: $calc;
+      }
+      @if ($direction == "b") {
+        padding-bottom: $calc;
+      }
+      @if ($direction == "x") {
+        padding: 0 $calc;
+      }
+      @if ($direction == "y") {
+        padding: $calc 0;
+      }
+    }
+    .m#{$direction}-#{$i} {
+      @if ($direction == "l") {
+        margin-left: $calc;
+      }
+      @if ($direction == "r") {
+        margin-right: $calc;
+      }
+      @if ($direction == "t") {
+        margin-top: $calc;
+      }
+      @if ($direction == "b") {
+        margin-bottom: $calc;
+      }
+      @if ($direction == "x") {
+        margin: 0 $calc;
+      }
+      @if ($direction == "x") {
+        margin: $calc 0;
+      }
+    }
+  }
+}

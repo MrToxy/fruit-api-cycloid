@@ -6,6 +6,8 @@ node_modules
 # local env files
 .env.local
 .env.*.local
+tests/unit/lcov-*
+tests/unit/lcov.info
 
 # Log files
 npm-debug.log*

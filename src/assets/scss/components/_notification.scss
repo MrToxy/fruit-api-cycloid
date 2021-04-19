@@ -1,0 +1,46 @@
+@use '../app' as *;
+$opacity: 0.6;
+$success: #48c78e;
+$danger: map-get($colors, danger);
+$primary: map-get($colors, primary);
+
+.notification {
+  border-radius: $nofitication-radius;
+  z-index: 12;
+  min-height: $navbar-height-mobile;
+  background: rgba($primary, 0.7);
+  text-align: center;
+  color: white;
+  font-size: 1.5rem;
+  padding: 1rem 2rem;
+  width: 100%;
+  &.is-borderless {
+    border-radius: 0;
+  }
+  &.is-success {
+    background: $success;
+  }
+  &.is-danger {
+    background: $danger;
+  }
+  &.is-opaque {
+    background: rgba($primary, 0.9);
+    &.is-success {
+      background: $success;
+    }
+    &.is-danger {
+      background: $danger;
+    }
+  }
+
+  &.is-fixed-top {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 999;
+    right: 0;
+  }
+  @include tablet {
+    min-height: $navbar-height;
+  }
+}

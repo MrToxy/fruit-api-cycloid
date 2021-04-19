@@ -1,0 +1,45 @@
+@use '../app' as *;
+
+button.button {
+  border-radius: 3px;
+  background: map-get($colors, success);
+  color: white;
+  padding: $button-padding;
+  cursor: pointer;
+  outline: none;
+  white-space: nowrap;
+  border: none;
+  &.is-loading {
+    color: transparent !important;
+    pointer-events: none;
+    @include loader;
+  }
+  &.is-medium {
+    padding: $button-medium-padding;
+  }
+  &.is-borderless {
+    border-radius: 0;
+  }
+  &.is-danger {
+    background: map-get($colors, danger);
+  }
+  &.is-inverted {
+    background: white;
+    color: map-get($colors, success);
+  }
+  &.icon {
+    background-color: rgba(map-get($colors, primary), 0.4);
+    color: white;
+    font-size: 1.25rem;
+    .button {
+      padding: 0;
+    }
+  }
+  &.is-fullwidth {
+    width: 100%;
+  }
+  &:disabled {
+    pointer-events: none;
+    background: rgba(map-get($colors, primary), 0.4);
+  }
+}

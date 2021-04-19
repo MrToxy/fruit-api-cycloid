@@ -1,32 +1,58 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view />
+    <Navbar />
+
+    <transition name="slide">
+      <div
+        v-if="notification.message"
+        :class="`is-${notification.type}`"
+        class="notification is-borderless is-fixed-top"
+      >
+        {{ notification.message }}
+      </div>
+    </transition>
+
+    <main class="app-main">
+      <router-view />
+    </main>
   </div>
 </template>
-
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+<script>
+import Navbar from "@/components/Navbar";
+import { sleep } from "@/utils";
+export default {
+  name: "App",
+  components: {
+    Navbar,
+  },
+  data: () => ({
+    notification: {
+      type: "success",
+      message: "",
+    },
+    timeout: null,
+  }),
+  mounted() {
+    this.$events.subscribe("notification", (notification) => {
+      this.$nextTick(async () => {
+        this.notification = {
+          ...this.notification,
+          ...notification,
+        };
+        await sleep();
+        this.notification.message = "";
+      });
+    });
+  },
+};
+</script>
+<style scoped>
+.slide-enter-active,
+.slide-leave-active {
+  transition: transform 0.5s;
+  will-change: transform;
 }
-
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
+.slide-enter, .slide-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  transform: translateY(-100%);
 }
 </style>

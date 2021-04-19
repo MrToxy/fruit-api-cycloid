@@ -1,0 +1,48 @@
+@use '../app' as *;
+$sizes: 6;
+
+@each $device, $size in map-remove($breakpoints, mobile) {
+  .has-text-centered {
+    text-align: center;
+
+    @include from($device) {
+      &-#{$device} {
+        text-align: center;
+      }
+    }
+  }
+  .has-text-left {
+    text-align: left;
+
+    @include from($device) {
+      &-#{$device} {
+        text-align: left;
+      }
+    }
+  }
+  .has-text-right {
+    text-align: right;
+    &-#{$device} {
+      @include from($device) {
+        text-align: right;
+      }
+    }
+  }
+}
+
+.no-decoration {
+  text-decoration: none;
+}
+
+.is-uppercase {
+  text-transform: uppercase;
+}
+.is-capitalize {
+  text-transform: capitalize;
+}
+
+@for $i from 1 through $sizes {
+  .is-size-#{$i} {
+    font-size: $i * 1rem;
+  }
+}

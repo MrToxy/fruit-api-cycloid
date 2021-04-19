@@ -1,0 +1,53 @@
+@use '../app' as *;
+
+%fullscreen {
+  height: 100%;
+  width: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  border-radius: 0px;
+}
+
+.modal {
+  &-backdrop {
+    position: fixed;
+    z-index: 10;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(#264653, 0.9);
+    backdrop-filter: blur(10px);
+  }
+
+  &-container {
+    background: white;
+    text-align: center;
+    position: relative;
+    border-radius: 10px;
+    padding: 1.5rem;
+    width: 600px;
+    max-height: 90%;
+    max-width: 90%;
+    overflow-y: auto;
+    // display: flex;
+    // flex-direction: column;
+    &.is-fullscreen {
+      @extend %fullscreen;
+    }
+    &.is-fullscreen-mobile {
+      @include mobile {
+        height: 100%;
+        width: 100%;
+        max-width: 100%;
+        max-height: 100%;
+        border-radius: 0px;
+      }
+    }
+  }
+  &-content {
+    padding: 2rem 0;
+  }
+}
